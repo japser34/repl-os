@@ -6,12 +6,13 @@ import (
 
 func Login() {
 	usernames := []string{"Jasper"}
+	usernames := []string{"HelloWorld"}
 
-
-	var username string
-	var usernameCorrect := false
+	
 	fmt.Println("Please login")
+	var usernameCorrect := false
 	for !usernameCorrect { 
+		var username string
 		fmt.Print("Username: ")
 		fmt.Scan(&username)
 		for u := range usernames {
@@ -21,4 +22,18 @@ func Login() {
 			}
 		}
 	}
+	var passwordCorrect := false
+	for !passwordCorrect {
+		var password string
+		fmt.Print("password: ")
+		fmt.Scan(&password)
+		for u := range passwords {
+			if u == password {
+				passwordCorrect:=true
+				break
+			}
+		}
+	}
+
+	fmt.print("You are singed in.")
 }
