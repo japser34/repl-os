@@ -1,3 +1,4 @@
+
 package startup
 
 import (
@@ -6,34 +7,41 @@ import (
 
 func Login() {
 	usernames := []string{"Jasper"}
-	usernames := []string{"HelloWorld"}
+	passwords := []string{"HelloWorld"}
 
-	
 	fmt.Println("Please login")
-	var usernameCorrect := false
-	for !usernameCorrect { 
+	var usernameCorrect bool
+	for !usernameCorrect {
 		var username string
 		fmt.Print("Username: ")
 		fmt.Scan(&username)
-		for u := range usernames {
+		for _, u := range usernames {
 			if u == username {
-				usernameCorrect:=true
+				usernameCorrect = true
 				break
 			}
 		}
-	}
-	var passwordCorrect := false
-	for !passwordCorrect {
-		var password string
-		fmt.Print("password: ")
-		fmt.Scan(&password)
-		for u := range passwords {
-			if u == password {
-				passwordCorrect:=true
-				break
-			}
+		if !usernameCorrect {
+			fmt.Println("Invalid username. Please try again.")
 		}
 	}
 
-	fmt.print("You are singed in.")
+	var passwordCorrect bool
+	for !passwordCorrect {
+		var password string
+		fmt.Print("Password: ")
+		fmt.Scan(&password)
+		for _, p := range passwords {
+			if p == password {
+				passwordCorrect = true
+				break
+			}
+		}
+		if !passwordCorrect {
+			fmt.Println("Invalid password. Please try again.")
+		}
+	}
+
+	fmt.Println("You are signed in.")
 }
+
