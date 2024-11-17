@@ -1,47 +1,32 @@
-
 package startup
 
 import (
 	"fmt"
 )
 
+
 func Login() {
-	usernames := []string{"Jasper"}
-	passwords := []string{"HelloWorld"}
+	users, err := GetUserData()
+	if err != nil {
+		fmt.Println("Error getting user data:", err)
+		return
+	}
 
 	fmt.Println("Please login")
-	var usernameCorrect bool
-	for !usernameCorrect {
-		var username string
+	var username, password string
+	for {
 		fmt.Print("Username: ")
 		fmt.Scan(&username)
-		for _, u := range usernames {
-			if u == username {
-				usernameCorrect = true
-				break
-			}
-		}
-		if !usernameCorrect {
-			fmt.Println("Invalid username. Please try again.")
-		}
-	}
-
-	var passwordCorrect bool
-	for !passwordCorrect {
-		var password string
 		fmt.Print("Password: ")
 		fmt.Scan(&password)
-		for _, p := range passwords {
-			if p == password {
-				passwordCorrect = true
-				break
+
+		for _, user := range users {
+			if user.Username == username && user.Password == password {
+				fmt.Println("You are signed in.")
+				return
 			}
 		}
-		if !passwordCorrect {
-			fmt.Println("Invalid password. Please try again.")
-		}
+		fmt.Println("Invalid username or password.")
 	}
-
-	fmt.Println("You are signed in.")
 }
 
