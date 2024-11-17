@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"path/filepath"
+	"golang.org/x/crypto/bcrypt"
 )
 
 const fileName = "data/users.json"
@@ -37,6 +38,13 @@ func writeDefaultUserData() (userData []User, err error) {
 		{"Jasper", "HelloWorld"},
 	}
 
+	for i, user := range users {
+		users[i].Password, err = hashPassword(user.Password)
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	data, err := json.MarshalIndent(users, "" , "  ")
 	if err != nil {
 		return nil, err
@@ -59,4 +67,12 @@ func writeDefaultUserData() (userData []User, err error) {
 	}
 
 	return users, nil
+}
+
+func hashPassword(password string) (string, error) {
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
+	return string(hash), nil
 }

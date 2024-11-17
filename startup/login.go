@@ -2,6 +2,7 @@ package startup
 
 import (
 	"fmt"
+	"golang.org/x/crypto/bcrypt"
 )
 
 
@@ -21,9 +22,12 @@ func Login() {
 		fmt.Scan(&password)
 
 		for _, user := range users {
-			if user.Username == username && user.Password == password {
-				fmt.Println("You are signed in.")
-				return
+			if user.Username == username {
+				err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+				if err == nil {
+					fmt.Println("Login successful.")
+					return
+				}
 			}
 		}
 		fmt.Println("Invalid username or password.")
