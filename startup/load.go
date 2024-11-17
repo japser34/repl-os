@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 	"github.com/japser34/repl-os/tools"
-	"os/exec"
+	"github.com/inancgumus/screen"
 )
 
 func Start() {
@@ -20,12 +20,8 @@ func Start() {
 	fmt.Print("Loading")
 	tools.TypePrint(500, "...\n")
 	
-	cmd := exec.Command("clear")
-	cmd.Stdout = os.Stdout
-	err := cmd.Run()
-	if err != nil {
-		fmt.Println(err)
-	}
+	screen.Clear()
+	screen.MoveTopLeft()
 
 	tools.TypePrint(15, asciiArt)
 	time.Sleep(150 * time.Millisecond)
