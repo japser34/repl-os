@@ -4,9 +4,10 @@ import (
 	"os"
 	"encoding/json"
 	"errors"
+	"path/filepath"
 )
 
-const fileName = "userData.json"
+const fileName = "data/users.json"
 
 type User struct {
 	Username string
@@ -37,6 +38,11 @@ func writeDefaultUserData() (userData []User, err error) {
 	}
 
 	data, err := json.MarshalIndent(users, "" , "  ")
+	if err != nil {
+		return nil, err
+	}
+
+	err = os.MkdirAll(filepath.Dir(fileName), 0755)
 	if err != nil {
 		return nil, err
 	}
